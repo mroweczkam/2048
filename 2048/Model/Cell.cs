@@ -11,13 +11,13 @@ namespace _2048.Model
         public int value { get; set; }
         public bool dirty { get; set; }
         public bool lipa {get; set;}
-        
+  
                 
         public Cell(int value)
         {
             this.value = value;
             this.dirty = false;
-            this.sum = false;
+         
         }
 
         public bool IsEmpty()
@@ -29,7 +29,7 @@ namespace _2048.Model
         public void Clear()
         {
             this.dirty = false;
-            this.sum = false;
+            
 
         }
      
