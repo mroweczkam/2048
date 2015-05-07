@@ -10,9 +10,9 @@ namespace _2048.Model
     {
         public int value { get; set; }
         public bool dirty { get; set; }
+        public bool lipa {get; set;}
         public bool dirty2 { get; set; }
-           
-        
+  
                 
         public Cell(int value)
         {
