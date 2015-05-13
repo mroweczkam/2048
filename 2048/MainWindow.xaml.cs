@@ -24,7 +24,6 @@ namespace _2048
         public MainWindow()
         {
             InitializeComponent();
-            //var gameVM = new GameVM(canvas);
             Grid GridTest = Board.createGrid();
            
             GridMain.Children.Add(GridTest);
