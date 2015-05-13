@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _2048.VM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,17 @@ namespace _2048
         public MainWindow()
         {
             InitializeComponent();
+            //var gameVM = new GameVM(canvas);
+            Grid GridTest = Board.createGrid();
+           
+            GridMain.Children.Add(GridTest);
+            Grid.SetColumn(GridTest, 2);
+            Grid.SetRow(GridTest, 2);
 
+            var gameVM = new GameVM();
+            this.DataContext = gameVM;
 
+           // var gamewm2 = new GameVM(canvas);        
 
         }
     }

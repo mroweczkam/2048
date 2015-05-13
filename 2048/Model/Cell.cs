@@ -10,9 +10,7 @@ namespace _2048.Model
     {
         public int value { get; set; }
         public bool dirty { get; set; }
-        public bool lipa {get; set;}
-        public bool dirty2 { get; set; }
-  
+
                 
         public Cell(int value)
         {
@@ -30,8 +28,16 @@ namespace _2048.Model
         public void Clear()
         {
             this.dirty = false;
-            
+        }
 
+        public static bool operator ==(Cell c1, Cell c2)
+        {
+            return c1.value == c2.value;
+        }
+        
+        public static bool operator !=(Cell c1, Cell c2)
+        {
+            return !(c1 == c2);
         }
      
 
