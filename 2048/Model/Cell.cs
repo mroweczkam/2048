@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace _2048.Model
 {
-    class Cell
+    public class Cell
     {
         public int value { get; set; }
         public bool dirty { get; set; }
 
-                
+
         public Cell(int value)
         {
             this.value = value;
             this.dirty = false;
-         
+
         }
 
         public bool IsEmpty()
         {
             return this.value == 0;
-             
+
         }
 
         public void Clear()
@@ -34,12 +34,16 @@ namespace _2048.Model
         {
             return c1.value == c2.value;
         }
-        
+
         public static bool operator !=(Cell c1, Cell c2)
         {
             return !(c1 == c2);
         }
-     
+
+        public string ToString()
+        {
+            return value.ToString();
+        }
 
     }
 }

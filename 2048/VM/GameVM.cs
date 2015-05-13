@@ -13,27 +13,16 @@ namespace _2048.VM
     public class GameVM : INotifyPropertyChanged
     {
         private Game game;
-        private Painter painter;
-        public GameVM()
+        private Grid gridMain;
+        public GameVM(Grid GridMain)
         {
             game = new Game();
+            gridMain = GridMain;
             ResetCmd = new RelayCommand(pars => Reset());
             MoveLeftCmd = new RelayCommand(pars => MoveLeft());
-            //painter = new Painter(canvas);
-          //  painter.draw(game.getBoard(), game.getBoardSize());
+            drawBoard();
+            
         }
-
-        public GameVM(DataGridCell datagrid)
-        {
-            game = new Game();
-            ResetCmd = new RelayCommand(pars => Reset());
-            MoveLeftCmd = new RelayCommand(pars => MoveLeft());
-            datagrid.Content = "abbb";
-
-            //painter = new Painter(datagrid);
-            //painter.draw(game.getBoard(), game.getBoardSize());
-        }
-
 
 
         private int _score;
@@ -52,6 +41,7 @@ namespace _2048.VM
         {
             game.reset();
             Score = game.score;
+            drawBoard();
         }
 
         private void MoveLeft()
@@ -63,6 +53,14 @@ namespace _2048.VM
         // Dodaj jeszcze 4 przyciski na ruch w lewo, prawo, gore i dol bazujac na tym co masz dla Reset. 
         // po kliknieciu wywolujesz odpowiednia metode na obj game, np. moveLeft, aktualizujesz property Score i przerysowywujesz plansze. 
 
+
+        private void drawBoard(){
+            Grid GridTest = Board.createGrid(game.getBoardSize(), game.getBoard());
+
+            gridMain.Children.Add(GridTest);
+            Grid.SetColumn(GridTest, 1);
+            Grid.SetRow(GridTest, 1);
+        }
         virtual protected void OnPropertyChanged(string propName)
         {
             if (PropertyChanged != null)

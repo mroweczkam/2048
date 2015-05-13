@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace _2048.Model
 {
-    class Game
+   class Game
     {
         private const int size = 4;
 
-        Cell[][] board;
+      public  Cell[][] board;
         // score moze byc zmieniany tylko wewnatrz klasy, a odczytywany z zewnatrz.
         public int score { get; set; }
 
@@ -35,6 +35,7 @@ namespace _2048.Model
                 }
 
             }
+            populate();
             populate();
 
 

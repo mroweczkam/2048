@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _2048.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +15,21 @@ namespace _2048.VM
     {
 
 
-        public static Grid createGrid(int size)
+        public static Grid createGrid(int size, Cell[][] board)
         {
 
             Grid grid = new Grid();
             grid.HorizontalAlignment = HorizontalAlignment.Stretch;
             grid.VerticalAlignment = VerticalAlignment.Stretch;
             grid.ShowGridLines = true;
-            
+
 
 
             for (int i = 0; i < size; i++)
             {
                 ColumnDefinition columnDefinition_i = new ColumnDefinition();
                 columnDefinition_i.Width = new GridLength(1, GridUnitType.Star);
-                
+
                 grid.ColumnDefinitions.Add(columnDefinition_i);
             }
 
@@ -39,28 +40,43 @@ namespace _2048.VM
                 grid.RowDefinitions.Add(rowDefinition_i);
             }
 
-            Rectangle rec = new Rectangle();
-            rec.Stroke = Brushes.Green;
-            rec.Fill = Brushes.LightYellow;
-            rec.Height = 100.00;
-            rec.Width = 100.00;
-            Grid.SetRow(rec, 0);
-            Grid.SetColumn(rec, 0);
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
 
-            grid.Children.Add(rec);
+                    if (!board[i][j].IsEmpty())
+                    {
+                        Rectangle rec = new Rectangle();
+                        rec.Stroke = Brushes.Green;
+                        rec.Fill = Brushes.LightYellow;
+                        Grid.SetRow(rec, i);
+                        Grid.SetColumn(rec, j);
+                        grid.Children.Add(rec);
 
-            StackPanel stcPanel = new StackPanel();
-            stcPanel.HorizontalAlignment = HorizontalAlignment.Center;
-            stcPanel.VerticalAlignment = VerticalAlignment.Center;
-            Grid.SetRow(stcPanel, 0);
-            Grid.SetColumn(stcPanel, 0);
 
-            TextBlock txtBlock = new TextBlock();
-            txtBlock.Visibility = Visibility.Visible;
-            txtBlock.Text = "2048";
-            stcPanel.Children.Add(txtBlock);
+                        StackPanel stcPanel = new StackPanel();
+                        stcPanel.HorizontalAlignment = HorizontalAlignment.Center;
+                        stcPanel.VerticalAlignment = VerticalAlignment.Center;
+                        Grid.SetRow(stcPanel, i);
+                        Grid.SetColumn(stcPanel, j);
 
-            grid.Children.Add(stcPanel);
+                        TextBlock txtBlock = new TextBlock();
+                        txtBlock.Visibility = Visibility.Visible;
+                        txtBlock.Text = board[i][j].ToString();
+                        stcPanel.Children.Add(txtBlock);
+
+                        grid.Children.Add(stcPanel);
+                    }
+
+                }
+            }
+      
+
+
+           
+
+           
 
             return grid;
 
