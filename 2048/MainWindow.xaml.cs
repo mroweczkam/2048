@@ -24,11 +24,11 @@ namespace _2048
         public MainWindow()
         {
             InitializeComponent();
-            Grid GridTest = Board.createGrid();
+            Grid GridTest = Board.createGrid(4);
            
             GridMain.Children.Add(GridTest);
-            Grid.SetColumn(GridTest, 2);
-            Grid.SetRow(GridTest, 2);
+            Grid.SetColumn(GridTest, 1);
+            Grid.SetRow(GridTest, 1);
 
             var gameVM = new GameVM();
             this.DataContext = gameVM;

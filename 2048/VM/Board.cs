@@ -13,8 +13,8 @@ namespace _2048.VM
     class Board
     {
 
-        
-        public static Grid createGrid()
+
+        public static Grid createGrid(int size)
         {
 
             Grid grid = new Grid();
@@ -22,23 +22,25 @@ namespace _2048.VM
             grid.VerticalAlignment = VerticalAlignment.Stretch;
             grid.ShowGridLines = true;
             
-            ColumnDefinition columnDefinition1 = new ColumnDefinition();
-            ColumnDefinition columnDefinition2 = new ColumnDefinition();
-            columnDefinition1.Width = new GridLength(100);
-            columnDefinition2.Width = new GridLength(100);
 
-            RowDefinition rowDefinition1 = new RowDefinition();
-            RowDefinition rowDefinition2 = new RowDefinition();
-            rowDefinition1.Height = new GridLength(100);
-            rowDefinition2.Height = new GridLength(100);
 
-            grid.ColumnDefinitions.Add(columnDefinition1);
-            grid.ColumnDefinitions.Add(columnDefinition2);
-            grid.RowDefinitions.Add(rowDefinition1);
-            grid.RowDefinitions.Add(rowDefinition2);
+            for (int i = 0; i < size; i++)
+            {
+                ColumnDefinition columnDefinition_i = new ColumnDefinition();
+                columnDefinition_i.Width = new GridLength(1, GridUnitType.Star);
+                
+                grid.ColumnDefinitions.Add(columnDefinition_i);
+            }
+
+            for (int i = 0; i < size; i++)
+            {
+                RowDefinition rowDefinition_i = new RowDefinition();
+                rowDefinition_i.Height = new GridLength(1, GridUnitType.Star);
+                grid.RowDefinitions.Add(rowDefinition_i);
+            }
 
             Rectangle rec = new Rectangle();
-            rec.Stroke = Brushes.Yellow;
+            rec.Stroke = Brushes.Green;
             rec.Fill = Brushes.LightYellow;
             rec.Height = 100.00;
             rec.Width = 100.00;
