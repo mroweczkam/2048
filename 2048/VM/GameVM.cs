@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -20,6 +21,11 @@ namespace _2048.VM
             gridMain = GridMain;
             ResetCmd = new RelayCommand(pars => Reset());
             MoveLeftCmd = new RelayCommand(pars => MoveLeft());
+            MoveRightCmd = new RelayCommand(pars => MoveRight());
+            MoveUpCmd = new RelayCommand(pars => MoveUp());
+            MoveDownCmd = new RelayCommand(pars => MoveDown());
+            
+            
             drawBoard();
             
         }
@@ -36,6 +42,9 @@ namespace _2048.VM
 
         public ICommand ResetCmd { get; set; }
         public ICommand MoveLeftCmd { get; set; }
+        public ICommand MoveRightCmd { get; set; }
+        public ICommand MoveUpCmd { get; set; }
+        public ICommand MoveDownCmd { get; set; }
 
         private void Reset()
         {
@@ -48,13 +57,45 @@ namespace _2048.VM
         {
             game.moveLeft();
             Score = game.score;
-            //painter.draw(game.getBoard(), game.getBoardSize());
+            drawBoard();
         }
-        // Dodaj jeszcze 4 przyciski na ruch w lewo, prawo, gore i dol bazujac na tym co masz dla Reset. 
-        // po kliknieciu wywolujesz odpowiednia metode na obj game, np. moveLeft, aktualizujesz property Score i przerysowywujesz plansze. 
+
+        private void MoveRight()
+        {
+            game.moveRight();
+            Score = game.score;
+            drawBoard();
+        }
+
+        private void MoveUp()
+        {
+            game.moveUp();
+            Score = game.score;
+            drawBoard();
+        }
+
+        private void MoveDown()
+        {
+            game.moveDown();
+            Score = game.score;
+            drawBoard();
+        }
+
+
+
+
 
 
         private void drawBoard(){
+            int intTotalChildren = gridMain.Children.Count - 1;
+            for (int intCounter = intTotalChildren; intCounter > 0; intCounter--)
+            {
+                if (gridMain.Children[intCounter].GetType() == typeof(Grid))
+                {
+                    Grid ucCurrentChild = (Grid)gridMain.Children[intCounter];
+                    gridMain.Children.Remove(ucCurrentChild);
+                }
+            }
             Grid GridTest = Board.createGrid(game.getBoardSize(), game.getBoard());
 
             gridMain.Children.Add(GridTest);

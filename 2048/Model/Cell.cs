@@ -30,6 +30,18 @@ namespace _2048.Model
             this.dirty = false;
         }
 
+        public static Cell operator +(Cell c1, Cell c2)
+        {                       
+            return new Cell(c1.value + c2.value);
+        }
+
+        public void makeEmpty()
+        {
+            this.value = 0;
+        }
+
+
+
         public static bool operator ==(Cell c1, Cell c2)
         {
             return c1.value == c2.value;
