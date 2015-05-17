@@ -24,6 +24,8 @@ namespace _2048.VM
             MoveRightCmd = new RelayCommand(pars => MoveRight());
             MoveUpCmd = new RelayCommand(pars => MoveUp());
             MoveDownCmd = new RelayCommand(pars => MoveDown());
+            SaveCmd = new RelayCommand(pars => Save());
+            OpenCmd = new RelayCommand(pars => Open());
             
             drawBoard();
         }
@@ -68,13 +70,60 @@ namespace _2048.VM
                 OnPropertyChanged("Score");
             }
         }
-
+        public ICommand SaveCmd { get; set; }
+        public ICommand OpenCmd { get; set; }
         public ICommand ResetCmd { get; set; }
         public ICommand MoveLeftCmd { get; set; }
         public ICommand MoveRightCmd { get; set; }
         public ICommand MoveUpCmd { get; set; }
         public ICommand MoveDownCmd { get; set; }
 
+        private void Save()
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Gra"; // Default file name
+            dlg.DefaultExt = ".game2048"; // Default file extension
+            dlg.Filter = "Save game (.game2048)|*.game2048"; // Filter files by extension 
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+
+                System.IO.File.WriteAllText(filename, GameSerializator.serialize(game));
+
+            }
+        }
+
+
+        private void Open()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            dlg.DefaultExt = ".game2048";
+            dlg.Filter = "Open game (.game2048)|*.game2048";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                string input = System.IO.File.ReadAllText(filename);
+
+                try
+                {
+                    game = GameSerializator.deserialize(input);
+                    Score = game.score;
+                    drawBoard();
+                }
+                catch
+                {
+                    MessageBox.Show("Błędny plik! Nie można załadować gry.");
+                }
+            }
+        }
+        
         private void Reset()
         {
             game.reset();

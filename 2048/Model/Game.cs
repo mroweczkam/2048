@@ -18,6 +18,14 @@ namespace _2048.Model
         {
             reset();
         }
+
+
+        public Game(int size)
+        {
+            this.size = size;
+            reset();
+        }
+
         public void reset()
         {
 

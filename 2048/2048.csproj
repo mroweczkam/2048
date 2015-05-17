@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\GameSerializator.cs" />
     <Compile Include="VM\Board.cs" />
     <Compile Include="VM\Painter.cs" />
     <Compile Include="VM\RelayCommand.cs" />
