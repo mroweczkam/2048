@@ -58,6 +58,8 @@ namespace _2048.VM
             game.moveLeft();
             Score = game.score;
             drawBoard();
+            CheckEnd();
+
         }
 
         private void MoveRight()
@@ -65,6 +67,8 @@ namespace _2048.VM
             game.moveRight();
             Score = game.score;
             drawBoard();
+            CheckEnd();
+
         }
 
         private void MoveUp()
@@ -72,6 +76,8 @@ namespace _2048.VM
             game.moveUp();
             Score = game.score;
             drawBoard();
+            CheckEnd();
+
         }
 
         private void MoveDown()
@@ -79,6 +85,14 @@ namespace _2048.VM
             game.moveDown();
             Score = game.score;
             drawBoard();
+            CheckEnd();
+        }
+
+        private void CheckEnd(){
+            if (game.IsEnd())
+            {
+                System.Windows.MessageBox.Show("Przegrałeś :(");
+            }
         }
 
 

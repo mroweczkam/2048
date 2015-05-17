@@ -28,12 +28,13 @@ namespace _2048
             var gameVM = new GameVM(GridMain);
             this.DataContext = gameVM;
 
-            
 
-            
 
-           // var gamewm2 = new GameVM(canvas);        
+
+
+            // var gamewm2 = new GameVM(canvas);        
 
         }
+
     }
 }

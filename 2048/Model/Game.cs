@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace _2048.Model
 {
-   class Game
+    class Game
     {
         private const int size = 4;
 
-      public  Cell[][] board;
-        // score moze byc zmieniany tylko wewnatrz klasy, a odczytywany z zewnatrz.
+        public Cell[][] board;
         public int score { get; set; }
 
         public Game()
@@ -20,8 +20,9 @@ namespace _2048.Model
         }
         public void reset()
         {
-            Random rnd = new Random(); // do usuniecia, tylko do testow 
-            score = rnd.Next(100);
+
+            score = 0;
+
             board = new Cell[size][];
 
 
@@ -46,7 +47,7 @@ namespace _2048.Model
         {
             Random rnd = new Random();
             int value = (rnd.Next(2) + 1) * 2;
-            int i;
+
 
             List<Cell> tmp = new List<Cell>();
 
@@ -61,14 +62,41 @@ namespace _2048.Model
                 }
             }
 
-            i = rnd.Next(tmp.Count());
-            tmp[i].value =value;
-            tmp.Clear();
+            if (tmp.Count() > 0)
+            {
+                var i = rnd.Next(tmp.Count());
+                tmp[i].value = value;
+                //tmp.Clear();
+            }
+
         }
 
-        public bool isEnd()
+
+
+        public bool IsEnd()
         {
-            return false;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (board[i][j].IsEmpty())
+                        return false;
+
+                    if (j - 1 > 0 && board[i][j] == board[i][j - 1])
+                    { return false; }
+
+                    if (j + 1 < size && board[i][j] == board[i][j + 1])
+                    { return false; }
+
+                    if (i - 1 > 0 && board[i][j] == board[i - 1][j])
+                    { return false; }
+
+                    if (i + 1 < size && board[i][j] == board[i + 1][j])
+                    { return false; }
+                }
+            }
+
+            return true;
         }
 
         public void moveLeft()
@@ -97,6 +125,7 @@ namespace _2048.Model
                             board[i][k] = board[i][k + 1] + board[i][k];
                             board[i][k].dirty = true;
                             board[i][k + 1].makeEmpty();
+                            score += board[i][k].value;
                             break;
                         }
                         if (!board[i][k].dirty && board[i][k] != board[i][k + 1])
@@ -132,9 +161,10 @@ namespace _2048.Model
 
                         if (!board[i][k].dirty && board[i][k] == board[i][k - 1])
                         {
-                            board[i][k] = board[i][k]+board[i][k - 1];
+                            board[i][k] = board[i][k] + board[i][k - 1];
                             board[i][k].dirty = true;
                             board[i][k - 1].makeEmpty();
+                            score += board[i][k].value;
                             break;
                         }
                         if (!board[i][k].dirty && board[i][k] != board[i][k - 1])
@@ -169,9 +199,10 @@ namespace _2048.Model
 
                         if (!board[k][j].dirty && board[k][j] == board[k - 1][j])
                         {
-                            board[k][j] =board[k][j]+ board[k - 1][j];
+                            board[k][j] = board[k][j] + board[k - 1][j];
                             board[k][j].dirty = true;
-                            board[k - 1][j].makeEmpty() ;
+                            board[k - 1][j].makeEmpty();
+                            score += board[k][j].value;
                             break;
                         }
                         if (!board[k][j].dirty && board[k][j] != board[k - 1][j])
@@ -197,7 +228,7 @@ namespace _2048.Model
                         if (board[k][j].IsEmpty())
                         {
                             board[k][j].value = board[k + 1][j].value;
-                            board[k + 1][j].makeEmpty() ;
+                            board[k + 1][j].makeEmpty();
                             continue;
                         }
 
@@ -206,9 +237,10 @@ namespace _2048.Model
 
                         if (!board[k][j].dirty && board[k][j] == board[k + 1][j])
                         {
-                            board[k][j] =board[k][j] + board[k + 1][j];
+                            board[k][j] = board[k][j] + board[k + 1][j];
                             board[k][j].dirty = true;
                             board[k + 1][j].makeEmpty();
+                            score += board[k][j].value;
                             break;
                         }
                         if (!board[k][j].dirty && board[k][j] != board[k + 1][j])
