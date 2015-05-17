@@ -13,6 +13,30 @@ namespace _2048.VM
 {
     class Board
     {
+        private static Dictionary<int, SolidColorBrush> colors = new Dictionary<int, SolidColorBrush>(){
+            {2, Brushes.LightBlue},
+            {4, Brushes.LightYellow},
+            {8, Brushes.LightGreen},
+            {16, Brushes.LightCyan},
+            {32, Brushes.LightPink},
+            {64, Brushes.LightGray},
+            {128, Brushes.LightCoral},
+            {256, Brushes.LightSeaGreen},
+            {512, Brushes.Green},
+            {1024, Brushes.Blue},
+            {2048, Brushes.Brown},
+            {4096, Brushes.Magenta},
+            {2*4096, Brushes.Magenta},
+            {2*2*4096, Brushes.Moccasin},
+            {2*2*2*4096, Brushes.MistyRose}
+    };
+
+        private static SolidColorBrush getColor (int a){
+            if (!colors.ContainsKey(a))
+                return Brushes.MediumVioletRed;
+           return colors[a];
+        }
+
 
 
         public static Grid createGrid(int size, Cell[][] board)
@@ -49,7 +73,7 @@ namespace _2048.VM
                     {
                         Rectangle rec = new Rectangle();
                         rec.Stroke = Brushes.Green;
-                        rec.Fill = Brushes.LightYellow;
+                        rec.Fill = getColor(board[i][j].value);
                         Grid.SetRow(rec, i);
                         Grid.SetColumn(rec, j);
                         grid.Children.Add(rec);
@@ -64,6 +88,8 @@ namespace _2048.VM
                         TextBlock txtBlock = new TextBlock();
                         txtBlock.Visibility = Visibility.Visible;
                         txtBlock.Text = board[i][j].ToString();
+                        txtBlock.FontSize = 30.00;
+
                         stcPanel.Children.Add(txtBlock);
 
                         grid.Children.Add(stcPanel);
@@ -71,12 +97,12 @@ namespace _2048.VM
 
                 }
             }
-      
 
 
-           
 
-           
+
+
+
 
             return grid;
 

@@ -25,10 +25,39 @@ namespace _2048.VM
             MoveUpCmd = new RelayCommand(pars => MoveUp());
             MoveDownCmd = new RelayCommand(pars => MoveDown());
             
-            
             drawBoard();
-            
         }
+
+
+        private string _boardSize;
+
+        public string boardSize
+        {
+            get { return _boardSize; }
+            set
+            {
+
+                if (_boardSize != value)
+                {
+                    _boardSize = value;
+                    game.size = Int32.Parse(value);
+                    Reset();
+                    OnPropertyChanged("boardSize");
+                }
+
+            }
+        }
+
+        private string[] sizes = new string[] { "4", "5", "6", "7", "8", "9", "10" };
+        public string[] boardSizes
+        {
+            get
+            {
+                return sizes;
+            }
+            set{}
+        }
+
 
 
         private int _score;

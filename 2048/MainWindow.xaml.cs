@@ -21,19 +21,12 @@ namespace _2048
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+          public MainWindow()
         {
             InitializeComponent();
 
             var gameVM = new GameVM(GridMain);
             this.DataContext = gameVM;
-
-
-
-
-
-            // var gamewm2 = new GameVM(canvas);        
-
         }
 
     }

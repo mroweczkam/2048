@@ -9,7 +9,7 @@ namespace _2048.Model
 {
     class Game
     {
-        private const int size = 4;
+        public int size  { get; set;}
 
         public Cell[][] board;
         public int score { get; set; }
