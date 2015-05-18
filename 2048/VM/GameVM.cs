@@ -91,7 +91,8 @@ namespace _2048.VM
             {
                 string filename = dlg.FileName;
 
-                System.IO.File.WriteAllText(filename, GameSerializator.serialize(game));
+              //  System.IO.File.WriteAllText(filename, GameSerializator.serialize(game));
+                GameSerializator.serializeToXml(game,filename);
 
             }
         }
@@ -109,11 +110,11 @@ namespace _2048.VM
             if (result == true)
             {
                 string filename = dlg.FileName;
-                string input = System.IO.File.ReadAllText(filename);
+                //string input = System.IO.File.ReadAllText(filename);
 
                 try
                 {
-                    game = GameSerializator.deserialize(input);
+                    game = GameSerializator.deserializeFromXML(filename);
                     Score = game.score;
                     drawBoard();
                 }
